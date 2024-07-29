@@ -20,15 +20,17 @@ GO
 -- Create date: 25/07/2024
 -- Description:	Crud Ado net 8
 -- =============================================
-CREATE PROCEDURE sp_crudAdoNet
+CREATE OR ALTER PROCEDURE sp_crudAdoNet
 	-- Add the parameters for the stored procedure here
 	@opcion int,
-	@id int OUTPUT,
+	@id int,
 	@nombre varchar(100) = '',
 	@celular varchar(100) = '',
 	@email varchar(100) = '',
 	@estado bit = 1,
+	@usuarioCreacion varchar(max) = '',
 	@fechaCreacion datetime = '',
+	@usuarioModificacion varchar(max) = '',
 	@fechaModificacion datetime = ''
 AS
 BEGIN
@@ -58,9 +60,12 @@ BEGIN
 			Celular,
 			Email,
 			Estado,
+			UsuarioCreacion,
 			FechaCreacion,
+			UsuarioModificacion,
 			FechaModificacion
 			FROM CONTACTO
+			WHERE Estado = 1
 		END
 
 		IF @opcion = 2
@@ -80,10 +85,13 @@ BEGIN
 					Celular,
 					Email,
 					Estado,
+					UsuarioCreacion,
 					FechaCreacion,
+					UsuarioModificacion,
 					FechaModificacion
 					FROM CONTACTO
 					WHERE Id = @id
+					AND Estado = 1
 				END
 		END
 
@@ -97,10 +105,10 @@ BEGIN
 				RETURN;
 			END
 
-			INSERT INTO CONTACTO(Nombre, Celular, Email) 
-			VALUES (@nombre, @celular, @email);
+			INSERT INTO CONTACTO(Nombre, Celular, Email, UsuarioCreacion, UsuarioModificacion) 
+			VALUES (@nombre, @celular, @email, @usuarioCreacion, @usuarioModificacion);
 
-			SELECT @id = SCOPE_IDENTITY();
+			--SELECT @id = SCOPE_IDENTITY();
 		END
 
 		IF @opcion = 4
@@ -118,10 +126,11 @@ BEGIN
 				Celular = @celular,
 				Email = @email,
 				Estado = @estado,
+				UsuarioModificacion = @usuarioModificacion,
 				FechaModificacion = GETDATE()
 			WHERE Id = @id;
 
-			SELECT @id = SCOPE_IDENTITY();
+			--SELECT @id = SCOPE_IDENTITY();
 		END
 
 		IF @opcion = 5
@@ -141,7 +150,7 @@ BEGIN
 				FechaModificacion = GETDATE()
 			WHERE Id = @id;
 
-			SELECT @id = SCOPE_IDENTITY();
+			--SELECT @id = SCOPE_IDENTITY();
 		END
 
 		-- Confirma la transacción si todo es exitoso
