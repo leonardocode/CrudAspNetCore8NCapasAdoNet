@@ -1,0 +1,59 @@
+﻿@model IEnumerable<CapaEntidades.Contacto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="offset-9 col-3 mb-3">
+        <a asp-action="Crear" asp-controller="Contacto" class="btn btn-secondary d-block mx-auto btn-lg">
+            <i class="fa-solid fa-plus"></i> Nuevo Contacto
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>Lista de Contactos</strong></h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @if (Model.Count() > 0)
+                    {
+                        <table class="table table-bordered" id="Tabla" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(m => m.Id)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Nombre)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Celular)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Email)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Estado)</th>
+                                    <th>Acciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var item in Model)
+                                {
+                                    <tr>
+                                        <th>@Html.DisplayFor(m => item.Id)</th>
+                                        <th>@Html.DisplayNameFor(m => item.Nombre)</th>
+                                        <th>@Html.DisplayNameFor(m => item.Celular)</th>
+                                        <th>@Html.DisplayNameFor(m => item.Email)</th>
+                                        <th>@Html.DisplayNameFor(m => item.Estado)</th>
+                                        <th></th>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No hay registros</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
