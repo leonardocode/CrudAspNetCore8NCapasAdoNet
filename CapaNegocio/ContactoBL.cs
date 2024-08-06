@@ -12,15 +12,18 @@ namespace CapaNegocio
 {
     public class ContactoBL
     {
-        private readonly ContactoDAL contactoDAL;
-        public ContactoBL(ContactoDAL contactoDAL)
+        private readonly ContactoDAL _contactoDAL;
+        private readonly ILogger<ContactoBL> _logger;
+
+        public ContactoBL(ContactoDAL contactoDAL, ILogger<ContactoBL> logger)
         {
-            this.contactoDAL = contactoDAL;
+            this._contactoDAL = contactoDAL;
+            _logger = logger;
         }
 
         public List<Contacto> Lista()
         {
-            DataTable dataTable = contactoDAL.Lista();
+            DataTable dataTable = _contactoDAL.Lista();
             List<Contacto> listaContactos = new List<Contacto>();
             try
             {
@@ -39,6 +42,7 @@ namespace CapaNegocio
             }
             catch (Exception ex)
             {
+                _logger.LogError("Error en la capa negocio: Contacto, metodo Lista" + ex.Message);
                 throw new Exception(ex.Message);
             }
             return listaContactos;

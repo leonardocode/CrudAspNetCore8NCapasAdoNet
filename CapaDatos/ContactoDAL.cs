@@ -1,4 +1,5 @@
 ﻿using CapaEntidades;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,11 @@ namespace CapaDatos
 {
     public class ContactoDAL : Conexion
     {
+        private readonly ILogger<ContactoDAL> _logger;
+        public ContactoDAL(ILogger<ContactoDAL> logger)
+        {
+            this._logger = logger;
+        }
         //#region usandoSelectQuemado
         ////     public List<Contacto> Lista()
         ////     {
@@ -126,7 +132,7 @@ namespace CapaDatos
                         using (SqlCommand cmd = new SqlCommand("sp_crudAdoNet", conexion))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-                            //cmd.Parameters.AddWithValue("@nombreParametro", nombreParametro);
+                            cmd.Parameters.AddWithValue("@opcion", 1);
                             SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
                             dataAdapter.Fill(dataTable);
                         }
@@ -135,6 +141,7 @@ namespace CapaDatos
                     {
                         conexion.Close();
                         dataTable = null;
+                        _logger.LogError("Error en la capa datos, en el metodo Lista en la conexion o al  ejecutar el sp: " + ex.Message);
                         throw new Exception("Error en la conexion capa datos, metodo lista contacto:" + ex.Message);
                     }
                 }
@@ -142,6 +149,7 @@ namespace CapaDatos
             catch (Exception ex)
             {
                 dataTable = null;
+                _logger.LogError("Error en la capa datos, en el metodo Lista: " + ex.Message);
                 throw new Exception("Error en la capa datos, metodo lista contacto: " + ex.Message);
             }
             return dataTable;

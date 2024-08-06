@@ -37,12 +37,16 @@
                                 @foreach(var item in Model)
                                 {
                                     <tr>
-                                        <th>@Html.DisplayFor(m => item.Id)</th>
-                                        <th>@Html.DisplayNameFor(m => item.Nombre)</th>
-                                        <th>@Html.DisplayNameFor(m => item.Celular)</th>
-                                        <th>@Html.DisplayNameFor(m => item.Email)</th>
-                                        <th>@Html.DisplayNameFor(m => item.Estado)</th>
-                                        <th></th>
+                                        <td>@Html.DisplayFor(m => item.Id)</td>
+                                        <td>@Html.DisplayFor(m => item.Nombre)</td>
+                                        <td>@Html.DisplayFor(m => item.Celular)</td>
+                                        <td>@Html.DisplayFor(m => item.Email)</td>
+                                        <td>@Html.DisplayFor(m => item.Estado)</td>
+                                        <td>
+                                            <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.Id"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                            <a class="btn btn-secondary" asp-action="Detalle" asp-route-id="@item.Id"><i class="fa-solid fa-circle-info"></i> Detalle</a>
+                                            <a class="btn btn-danger" asp-action="Eliminar" asp-route-id="@item.Id"><i class="fa-solid fa-trash"></i> Eliminar</a>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>

@@ -5,15 +5,27 @@ namespace Crud.Controllers
 {
     public class ContactoController : Controller
     {
-        private readonly ContactoBL contactoBL;
-        public ContactoController(ContactoBL contactoBL)
+        private readonly ILogger<ContactoController> _logger;
+        private readonly ContactoBL _contactoBL;
+
+        public ContactoController(ILogger<ContactoController> logger, ContactoBL contactoBL)
         {
-            this.contactoBL = contactoBL;
+            this._logger = logger;
+            _contactoBL = contactoBL;
         }
         public IActionResult Index()
         {
-            var lista = contactoBL.Lista();
-            return View(lista);
+            try
+            {
+                var lista = _contactoBL.Lista();
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error en la capa controlador: Contacto, metodo Index"+ ex.Message);
+                throw new Exception(ex.Message);
+            }
+           
         }
     }
 }
