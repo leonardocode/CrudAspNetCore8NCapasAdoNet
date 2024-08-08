@@ -28,7 +28,7 @@
                                     <th>@Html.DisplayNameFor(m => m.Nombre)</th>
                                     <th>@Html.DisplayNameFor(m => m.Celular)</th>
                                     <th>@Html.DisplayNameFor(m => m.Email)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Estado)</th>
+                                    @* <th>@Html.DisplayNameFor(m => m.Estado)</th> *@
                                     <th>Acciones</th>
 
                                 </tr>
@@ -41,7 +41,7 @@
                                         <td>@Html.DisplayFor(m => item.Nombre)</td>
                                         <td>@Html.DisplayFor(m => item.Celular)</td>
                                         <td>@Html.DisplayFor(m => item.Email)</td>
-                                        <td>@Html.DisplayFor(m => item.Estado)</td>
+                                        @* <td>@Html.DisplayFor(m => item.Estado)</td> *@
                                         <td>
                                             <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.Id"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
                                             <a class="btn btn-secondary" asp-action="Detalle" asp-route-id="@item.Id"><i class="fa-solid fa-circle-info"></i> Detalle</a>

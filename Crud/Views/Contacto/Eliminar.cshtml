@@ -1,0 +1,45 @@
+﻿@model CapaEntidades.Contacto
+@{
+    ViewData["Title"] = "Eliminar Contacto";
+}
+
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>Eiminar Contacto</strong></h3>
+            </div>
+            <div class="card-body">
+                <form asp-action="Eliminar" method="POST">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" readonly />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Celular" class="control-label"></label>
+                        <input asp-for="Celular" class="form-control" readonly />
+                        <span asp-validation-for="Celular" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" readonly/>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-block mt-3">
+                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-trash"></i> Eliminar Contacto</button>
+                        <a class="btn btn-danger" type="button" asp-controller="Contacto" asp-action="Index">Volver</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
